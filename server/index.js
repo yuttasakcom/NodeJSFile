@@ -47,10 +47,11 @@ app.get('/create/post', (req, res) => {
 
     fs.writeFile(posts, JSON.stringify([...currentData, newPost]), (err) => {
       if (err) console.error(err)
+
+      res.status(200).json({message: 'success'})
     })
   })
-
-  res.status(200).json({message: 'success'})
+  
 })
 
 app.get('/edit/post/:id', (req, res) => {
