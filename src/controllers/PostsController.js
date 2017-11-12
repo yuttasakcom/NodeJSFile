@@ -1,46 +1,3 @@
-## NodeJS Files
-
-## index.js
-```javascript
-const express = require('express')
-const app = express()
-const port = process.env.PORT || 3000
-const router = require('./routes')
-
-router(app)
-
-app.listen(port, () => {
-  console.log(`Server running at port:${port}`)
-})
-```
-
-## routes index.js
-```javascript
-const PostsRouter = require('./PostsRouter')
-
-module.exports = app => {
-  app.use('/post', PostsRouter)
-  app.use('*', (req, res) => res.status(404).send({msg: '404!'}))
-}
-```
-
-## routes PostsRouter.js
-```javascript
-const Router = require('express').Router()
-
-const PostsController = require('../controllers/PostsController')
-
-Router.get('/', PostsController.get)
-Router.get('/create', PostsController.create)
-Router.get('/:id/edit', PostsController.update)
-Router.get('/:id/delete', PostsController.destroy)
-Router.get('/:id', PostsController.getById)
-
-module.exports = Router
-```
-
-## constrollers PostsController.js
-```javascript
 const fs = require('fs')
 const path = require('path')
 const uuidv1 = require('uuid/v1');
@@ -158,4 +115,3 @@ module.exports = {
   destroy,
   getById
 }
-```
