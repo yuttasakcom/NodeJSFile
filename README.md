@@ -81,7 +81,7 @@ const getById = (req, res) => {
     if (err) res.status(500).json(err)
 
     if (data === null) {
-      res.status(404).json({message: 'Not Found'})
+      res.status(404).json({message: `Post id: ${req.params.id} not found!`})
     } else {
       res.status(200).json(data)
     }
