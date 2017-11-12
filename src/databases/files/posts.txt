@@ -1,1 +1,1 @@
-[]
+[{"id":"6d83af30-c7c9-11e7-b068-77612bad6667","topic":"Quia laudantium vitae.","content":"Distinctio et necessitatibus at voluptatum voluptas omnis temporibus omnis. Repellat sunt nemo. Ipsam non ea.","created_at":"2017-11-12T23:49:12+07:00","updated_at":"2017-11-12T23:49:12+07:00","owner_id":96}]

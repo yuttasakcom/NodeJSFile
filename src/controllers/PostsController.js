@@ -1,13 +1,31 @@
 const path = require('path')
 const FilesService = require('../services/files')
-const posts = path.resolve(__dirname, '../databases/files/posts.txt')
+const posts = path.resolve(__dirname, '../databases/files/postss.txt')
 
+// Callback
 const get = (req, res) => {
   FilesService.get(posts, (err, data) => {
     if (err) res.status(500).json(err)
     res.status(200).json(data)
   })
 }
+
+// Promise
+// const get = (req, res) => {
+//   FilesService.get(posts)
+//     .then(data => res.send(data))
+//     .catch(err => res.status(500).json(err))
+// }
+
+// Async Await
+// const get = async (req, res) => {
+//   try {
+//     const data = await FilesService.get(posts)
+//     res.send(data)
+//   } catch(err) {
+//     res.status(500).json(err)
+//   }
+// }
 
 const create = (req, res) => {
   FilesService.create(posts, (err, data) => {
