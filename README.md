@@ -1,6 +1,7 @@
 ## Node Sample
 
 ## Directory Structure
+![My Image](https://github.com/yuttasakcom/NodeSample/blob/master/code_structure.png)
 
 ## index.js
 ```javascript
