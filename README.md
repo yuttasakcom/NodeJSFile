@@ -63,7 +63,7 @@ const posts = path.resolve(__dirname, '../databases/files/posts.txt')
 exports.get = (req, res) => {
   const get = require('../services/files/get')
   get(posts)
-    .then(data => res.send(JSON.parse(data)))
+    .then(data => res.status(200).json(JSON.parse(data)))
     .catch(err => res.status(500).json(err))
 }
 
