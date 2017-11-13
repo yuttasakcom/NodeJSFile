@@ -1,55 +1,64 @@
 const path = require('path')
-const FilesService = require('../services/files')
-const posts = path.resolve(__dirname, '../databases/files/postss.txt')
+const posts = path.resolve(__dirname, '../databases/files/posts.txt')
 
 // Callback
-const get = (req, res) => {
-  FilesService.get(posts, (err, data) => {
-    if (err) res.status(500).json(err)
-    res.status(200).json(data)
-  })
-}
-
-// Promise
-// const get = (req, res) => {
-//   FilesService.get(posts)
-//     .then(data => res.send(data))
-//     .catch(err => res.status(500).json(err))
+// exports.get = (req, res) => {
+//   const get = require('../services/files/get')
+//   get(posts, (err, data) => {
+//     if (err) {
+//       res.status(500).json(err)
+//     } else {
+//       res.status(200).json(JSON.parse(data))
+//     }
+//   })
 // }
 
+// Promise then
+exports.get = (req, res) => {
+  const get = require('../services/files/get')
+  get(posts)
+    .then(data => res.send(JSON.parse(data)))
+    .catch(err => res.status(500).json(err))
+}
+
 // Async Await
-// const get = async (req, res) => {
+// exports.get = async (req, res) => {
 //   try {
-//     const data = await FilesService.get(posts)
-//     res.send(data)
+//     const get = require('../services/files/get')
+//     const data = await get(posts)
+//     res.status(200).json(JSON.parse(data))
 //   } catch(err) {
 //     res.status(500).json(err)
 //   }
 // }
 
-const create = (req, res) => {
-  FilesService.create(posts, (err, data) => {
+exports.create = (req, res) => {
+  const create = require('../services/files/create')
+  create(posts, (err, data) => {
     if (err) res.status(500).json(err)
     res.status(200).json({message: 'success'})
   })
 }
 
-const update = (req, res) => {
-  FilesService.update(posts, req, (err, data) => {
+exports.update = (req, res) => {
+  const update = require('../services/files/update')
+  update(posts, req, (err, data) => {
     if (err) res.status(500).json(err)
     res.status(200).json(data)
   })
 }
 
-const destroy = (req, res) => {
-  FilesService.destroy(posts, req, (err, data) => {
+exports.destroy = (req, res) => {
+  const destroy = require('../services/files/delete')
+  destroy(posts, req, (err, data) => {
     if (err) res.status(500).json(err)
     res.status(200).json({message: 'success'})
   })
 }
 
-const getById = (req, res) => {
-  FilesService.getById(posts, req, (err, data) => {
+exports.getById = (req, res) => {
+  const getById = require('../services/files/getById')
+  getById(posts, req, (err, data) => {
     if (err) res.status(500).json(err)
 
     if (data === null) {
@@ -58,12 +67,4 @@ const getById = (req, res) => {
       res.status(200).json(data)
     }
   })
-}
-
-module.exports = {
-  get,
-  create,
-  update,
-  destroy,
-  getById
 }

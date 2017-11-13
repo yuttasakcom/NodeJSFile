@@ -45,39 +45,66 @@ module.exports = Router
 ## constrollers PostsController.js
 ```javascript
 const path = require('path')
-const FilesService = require('../services/files')
 const posts = path.resolve(__dirname, '../databases/files/posts.txt')
 
-const get = (req, res) => {
-  FilesService.get(posts, (err, data) => {
-    if (err) res.status(500).json(err)
-    res.status(200).json(data)
-  })
+// Callback
+// exports.get = (req, res) => {
+//   const get = require('../services/files/get')
+//   get(posts, (err, data) => {
+//     if (err) {
+//       res.status(500).json(err)
+//     } else {
+//       res.status(200).json(JSON.parse(data))
+//     }
+//   })
+// }
+
+// Promise then
+exports.get = (req, res) => {
+  const get = require('../services/files/get')
+  get(posts)
+    .then(data => res.send(JSON.parse(data)))
+    .catch(err => res.status(500).json(err))
 }
 
-const create = (req, res) => {
-  FilesService.create(posts, (err, data) => {
+// Async Await
+// exports.get = async (req, res) => {
+//   try {
+//     const get = require('../services/files/get')
+//     const data = await get(posts)
+//     res.status(200).json(JSON.parse(data))
+//   } catch(err) {
+//     res.status(500).json(err)
+//   }
+// }
+
+exports.create = (req, res) => {
+  const create = require('../services/files/create')
+  create(posts, (err, data) => {
     if (err) res.status(500).json(err)
     res.status(200).json({message: 'success'})
   })
 }
 
-const update = (req, res) => {
-  FilesService.update(posts, req, (err, data) => {
+exports.update = (req, res) => {
+  const update = require('../services/files/update')
+  update(posts, req, (err, data) => {
     if (err) res.status(500).json(err)
     res.status(200).json(data)
   })
 }
 
-const destroy = (req, res) => {
-  FilesService.destroy(posts, req, (err, data) => {
+exports.destroy = (req, res) => {
+  const destroy = require('../services/files/delete')
+  destroy(posts, req, (err, data) => {
     if (err) res.status(500).json(err)
     res.status(200).json({message: 'success'})
   })
 }
 
-const getById = (req, res) => {
-  FilesService.getById(posts, req, (err, data) => {
+exports.getById = (req, res) => {
+  const getById = require('../services/files/getById')
+  getById(posts, req, (err, data) => {
     if (err) res.status(500).json(err)
 
     if (data === null) {
@@ -86,14 +113,6 @@ const getById = (req, res) => {
       res.status(200).json(data)
     }
   })
-}
-
-module.exports = {
-  get,
-  create,
-  update,
-  destroy,
-  getById
 }
 ```
 ## services files/index.js
@@ -194,12 +213,20 @@ module.exports = (file, req, callback) => {
 ```javascript
 const fs = require('fs')
 
-module.exports = (file, callback) => {
-  fs.readFile(file, 'utf-8', (err, data) => {
-    if (err) callback(err, null)
-    
-    callback(null, JSON.parse(data))
-  })
+// Callback
+// module.exports = (file, callback) => {
+//   fs.readFile(file, 'utf-8', (err, data) => {
+//     if (err) callback(err, null)
+//     callback(null, data)
+//   })
+// }
+
+// Promise
+module.exports = file => {
+  return new Promise((resolve, reject) => fs.readFile(file, 'utf-8', (err, data) => {
+    if (err) reject(err)
+    resolve(data)
+  }))
 }
 ```
 
