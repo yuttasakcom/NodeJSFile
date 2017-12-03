@@ -4,11 +4,11 @@ const faker = require('faker');
 const moment = require('moment')
 const time = moment()
 
-module.exports = (file, callback) => {
+module.exports = (file, {topic, content}, callback) => {
   const newPost = {
     id: uuidv1(),
-    topic: faker.lorem.sentence(),
-    content: faker.lorem.paragraph(),
+    topic,
+    content,
     created_at: time.format(),
     updated_at: time.format(),
     owner_id: faker.random.number(100)
