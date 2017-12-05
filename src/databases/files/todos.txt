@@ -1,1 +1,1 @@
-[{"id":"5c300760-d9bc-11e7-979b-278b34b0383f","content":"Javascript","created_at":"2017-12-05T20:01:08+07:00","updated_at":"2017-12-05T20:01:08+07:00","owner_id":55}]
+[]
