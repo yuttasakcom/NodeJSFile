@@ -29,6 +29,14 @@ exports.update = (req, res) => {
   })
 }
 
+exports.removeAll = (req, res) => {
+  const removeAll = require('../services/files/removeAll')
+  removeAll(todos, (err, data) => {
+    if (err) res.status(500).json(err)
+    res.status(200).json({message: 'success'})
+  })
+}
+
 exports.destroy = (req, res) => {
   const destroy = require('../services/files/delete')
   destroy(todos, req, (err, data) => {
